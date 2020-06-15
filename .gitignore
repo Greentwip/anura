@@ -39,6 +39,7 @@ anura
 Box2D.lib
 lua.lib
 !vs2013
+!vs2019
 
 # exclude any temporary files.
 *.pb.cc
