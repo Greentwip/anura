@@ -17,7 +17,6 @@
 *.exe
 *.out
 *.app
-anura
 
 # Dependency files
 *.d
@@ -40,6 +39,10 @@ Box2D.lib
 lua.lib
 !vs2013
 !vs2019
+.vs
+vs2019/anura/Release
+vs2019/anura/Win32
+vs2019/anura/x64
 
 # exclude any temporary files.
 *.pb.cc
