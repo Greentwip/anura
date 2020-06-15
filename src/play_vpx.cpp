@@ -29,8 +29,6 @@
 #include "play_vpx.hpp"
 #include "preferences.hpp"
 
-#pragma comment(lib, "vpxmt")
-
 #define IVF_FILE_HDR_SZ  (32)
 #define IVF_FRAME_HDR_SZ (12)
 

@@ -21,8 +21,6 @@
 	   distribution.
 */
 
-#pragma comment(lib, "SDL2_ttf")
-
 #include "DisplayDevice.hpp"
 #include "FontSDL.hpp"
 #include "SurfaceSDL.hpp"

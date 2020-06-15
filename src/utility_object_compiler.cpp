@@ -31,12 +31,12 @@
 #include <vector>
 #include <sstream>
 
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
 
 #include "kre/SurfaceSDL.hpp"
 #include "kre/SurfaceScale.hpp"
 
-#include "SDL_image.h"
+#include "SDL2/SDL_image.h"
 
 #include "Surface.hpp"
 
@@ -1867,7 +1867,7 @@ namespace
 			}
 		}
 
-		using namespace boost::filesystem;
+		using namespace std::experimental::filesystem;
 
 		if(!names.empty()) {
 			for(const auto& f : base_folder_files) {

@@ -44,7 +44,8 @@
 #endif
 #endif
 
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
+#include <system_error>
 
 #include "asserts.hpp"
 #include "filesystem.hpp"
@@ -60,7 +61,7 @@
 
 namespace sys
 {
-	using namespace boost::filesystem;
+	using namespace std::experimental::filesystem;
 
 	namespace 
 	{
@@ -162,7 +163,7 @@ namespace sys
 		ASSERT_LOG(p.has_filename(), "No filename found in write_file path: " << fname);
 
 		// Create any needed directories
-		boost::system::error_code ec;
+		std::error_code ec;
 		create_directories(p.parent_path(), ec);
 
 		// Write the file.
@@ -200,7 +201,11 @@ namespace sys
 	{
 		path p(fname);
 		if(is_regular_file(p)) {
-			return static_cast<int64_t>(last_write_time(p));
+			auto ftime = last_write_time(p);
+
+			std::time_t cftime = decltype(ftime)::clock::to_time_t(ftime);
+
+			return static_cast<int64_t>(cftime);
 		} else {
 			return 0;
 		}
@@ -218,7 +223,7 @@ namespace sys
 
 	void copy_file(const std::string& from, const std::string& to)
 	{
-		copy_file(path(from), path(to), copy_option::fail_if_exists);
+		copy_file(path(from), path(to), copy_options::skip_existing);
 	}
 
 	void rmdir_recursive(const std::string& fpath)
@@ -553,7 +558,7 @@ namespace sys
 		stat(path.c_str(), &buf);
 		return (buf.st_mode&S_IXUSR) != 0;
 #else
-		return (boost::filesystem::status(path).permissions()&boost::filesystem::owner_exe) != 0;
+		return (int(std::experimental::filesystem::status(path).permissions()&std::experimental::filesystem::perms::owner_exec)) != 0;
 #endif
 	}
 
@@ -564,7 +569,7 @@ namespace sys
 		stat(path.c_str(), &buf);
 		chmod(path.c_str(), buf.st_mode|S_IXUSR);
 #else
-		boost::filesystem::permissions(path, boost::filesystem::status(path).permissions() | boost::filesystem::owner_exe);
+		std::experimental::filesystem::permissions(path, std::experimental::filesystem::status(path).permissions() | std::experimental::filesystem::perms::owner_exec);
 #endif
 	}
 
@@ -575,7 +580,7 @@ namespace sys
 		stat(path.c_str(), &buf);
 		return (buf.st_mode&S_IWUSR) != 0;
 #else
-		return (boost::filesystem::status(path).permissions()&boost::filesystem::owner_write) != 0;
+		return (int(std::experimental::filesystem::status(path).permissions()&std::experimental::filesystem::perms::owner_write)) != 0;
 #endif
 	}
 
@@ -586,12 +591,12 @@ namespace sys
 		stat(path.c_str(), &buf);
 		chmod(path.c_str(), buf.st_mode|S_IWUSR);
 #else
-		boost::filesystem::permissions(path, boost::filesystem::status(path).permissions() | boost::filesystem::owner_write);
+		std::experimental::filesystem::permissions(path, std::experimental::filesystem::status(path).permissions() | std::experimental::filesystem::perms::owner_write);
 #endif
 	}
 
 	std::string get_cwd()
 	{
-		return boost::filesystem::current_path().generic_string();
+		return std::experimental::filesystem::current_path().generic_string();
 	}
 }

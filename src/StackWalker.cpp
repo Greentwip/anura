@@ -86,7 +86,7 @@
 #include <tchar.h>
 #include <stdio.h>
 #include <stdlib.h>
-#pragma comment(lib, "version.lib")  // for "VerQueryValue"
+//#pragma comment(lib, "version.lib")  // for "VerQueryValue" // linking should be performed from the project settings
 #pragma warning(disable:4826)
 
 #include "StackWalker.h"

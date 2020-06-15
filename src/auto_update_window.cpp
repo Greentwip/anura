@@ -1,7 +1,9 @@
 #include <assert.h>
 #include <sstream>
 
-#include <boost/filesystem/operations.hpp>
+
+#include <experimental/filesystem>
+//#include <boost/filesystem/operations.hpp>
 
 #include <GL/glew.h>
 
@@ -814,7 +816,7 @@ COMMAND_LINE_UTILITY(update_launcher)
 				timeout_ms = 10000000;
 			}
 		}
-	} catch(boost::filesystem::filesystem_error& e) {
+	} catch(std::experimental::filesystem::filesystem_error& e) {
 		ASSERT_LOG(false, "File Error: " << e.what());
 	}
 }

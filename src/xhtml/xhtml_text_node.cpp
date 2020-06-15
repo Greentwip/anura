@@ -33,10 +33,6 @@
 
 #include "WindowManager.hpp"
 
-#pragma comment(lib, "icudt.lib")
-#pragma comment(lib, "icuin.lib")
-#pragma comment(lib, "icuuc.lib")
-
 namespace xhtml
 {
 	namespace

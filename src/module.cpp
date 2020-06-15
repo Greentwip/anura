@@ -23,7 +23,7 @@
 
 #include <deque>
 
-#include <boost/filesystem/operations.hpp>
+#include <experimental/filesystem>
 
 #include "asserts.hpp"
 #include "base64.hpp"
@@ -1621,7 +1621,7 @@ static const int ModuleProtocolVersion = 1;
 					}
 
 					sys::remove_file(path_str);
-				} catch(boost::filesystem::filesystem_error& e) {
+				} catch(std::experimental::filesystem::filesystem_error& e) {
 					LOG_ERROR("FAILED TO DELETE FILE: " << path_str);
 				}
 			}
@@ -1713,7 +1713,7 @@ static const int ModuleProtocolVersion = 1;
 
 			try {
 				sys::write_file(path_str, contents);
-			} catch(boost::filesystem::filesystem_error& e) {
+			} catch(std::experimental::filesystem::filesystem_error& e) {
 				bool fixed = false;
 				try {
 					if(!sys::is_file_writable(path_str)) {
@@ -1721,7 +1721,7 @@ static const int ModuleProtocolVersion = 1;
 						sys::write_file(path_str, contents);
 						fixed = true;
 					}
-				} catch(boost::filesystem::filesystem_error& e) {
+				} catch(std::experimental::filesystem::filesystem_error& e) {
 				}
 
 				ASSERT_LOG(fixed, "Could not write file: " << path_str);

@@ -51,7 +51,7 @@
 #define getcwd	_getcwd
 #endif
 
-// XXX should convert this to use boost::filesystem
+// XXX should convert this to use std::experimental::filesystem
 
 namespace sys
 {

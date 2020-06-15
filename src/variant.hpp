@@ -145,6 +145,7 @@ public:
 	explicit variant(unsigned int n) : type_(VARIANT_TYPE_INT), int_value_(n) { registerGlobalVariant(this); }
 	explicit variant(long int n) : type_(VARIANT_TYPE_INT), int_value_(n) { registerGlobalVariant(this); }
 	explicit variant(long unsigned int n) : type_(VARIANT_TYPE_INT), int_value_(n) { registerGlobalVariant(this); }
+	explicit variant(unsigned long long n) : type_(VARIANT_TYPE_INT), int_value_(n) { registerGlobalVariant(this); }
 	explicit variant(decimal d) : type_(VARIANT_TYPE_DECIMAL), decimal_value_(d.value()) { registerGlobalVariant(this); }
 	explicit variant(double f) : type_(VARIANT_TYPE_DECIMAL), decimal_value_(decimal(f).value()) { registerGlobalVariant(this); }
 	variant(int64_t n, DECIMAL_VARIANT_TYPE) : type_(VARIANT_TYPE_DECIMAL), decimal_value_(n) { registerGlobalVariant(this); }

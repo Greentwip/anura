@@ -543,7 +543,7 @@ namespace game_logic
 
 			return variant(&result);
 		DEFINE_FIELD(num_entries, "int")
-			return variant(obj.cache_.size());
+			return variant(obj.cache_.size()); //@TODO truncation seems fine, but pops a lot of warnings for x64 builds
 		DEFINE_FIELD(max_entries, "int")
 			return variant(obj.max_entries_);
 		DEFINE_FIELD(all, "[builtin ffl_cache]")
