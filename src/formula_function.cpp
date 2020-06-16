@@ -276,10 +276,29 @@ namespace game_logic
 			std::string endString(endCharPtr);
 
 			const char* beginResult = strstr(mainBuffer, beginCharPtr);
+
 			int beginPosition = beginResult - mainBuffer;
+			
+			if (strlen(beginCharPtr) == 0 || beginResult == nullptr) {
+				beginPosition = 0;
+			}
+
+			if (beginPosition < 0) {
+				beginPosition = 0;
+			}
+			
 
 			const char* endResult = strstr(mainBuffer, endCharPtr);
+
 			int endPosition = endResult - mainBuffer;
+
+			if (strlen(endCharPtr) == 0 || endResult == nullptr) {
+				endPosition = v.as_string().size() - 1;
+			}
+
+			if (endPosition < 0) {
+				endPosition = 0;
+			}
 
 			begin = v.as_string().begin() + beginPosition;
 			end = v.as_string().begin() + endPosition;

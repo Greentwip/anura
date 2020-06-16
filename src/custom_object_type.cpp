@@ -80,7 +80,7 @@ std::map<std::string, std::string>& prototype_file_paths()
 namespace 
 {
 	PREF_BOOL(strict_mode_warnings, false, "If turned on, all objects will be run in strict mode, with errors non-fatal");
-	PREF_BOOL(suppress_strict_mode, false, "If turned on, turns off strict mode checking on all objects");
+	PREF_BOOL(suppress_strict_mode, true, "If turned on, turns off strict mode checking on all objects");
 	PREF_BOOL(force_strict_mode, false, "If turned on, turns on strict mode checking on all objects");
 
 	bool custom_object_strict_mode = false;
