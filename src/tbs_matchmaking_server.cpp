@@ -460,8 +460,8 @@ public:
 	{
 		variant_builder doc;
 		doc.add("timestamp", static_cast<int>(cur_time));
-		doc.add("num_users", users_to_sessions_.size());
-		doc.add("games", servers_.size());
+		doc.add("num_users", (long unsigned int)users_to_sessions_.size());
+		doc.add("games", (long unsigned int)servers_.size());
 
 		variant v = doc.build();
 

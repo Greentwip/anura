@@ -201,7 +201,7 @@ namespace KRE
 			build->add("ignore_global_model", true);
 		}
 
-		build->add("order", order_);
+		build->add("order", (long unsigned int) order_);
 
 		if(isBlendEnabled()) {
 			build->add("blend_enable", true);

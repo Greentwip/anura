@@ -489,7 +489,14 @@ void VirtualMachine::executeInternal(const FormulaCallable& variables, std::vect
 			const int nitems = static_cast<size_t>(*p);
 
 			const variant left = stack[stack.size()-nitems-1];
-			const variant* begin_args = &stack[stack.size()-nitems];
+			const variant* begin_args = nullptr;
+			
+			if (stack.size() - nitems < stack.size()) {
+				begin_args = &stack[stack.size() - nitems];
+			} 
+			else {
+				begin_args = &stack[stack.size() - 1];
+			}
 
 			game_logic::FunctionExpression* fn = static_cast<game_logic::FunctionExpression*>(left.mutable_callable());
 			const FormulaCallable& vars = variables_stack.empty() ? variables : *variables_stack.back();

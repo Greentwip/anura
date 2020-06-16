@@ -223,8 +223,18 @@ namespace game_logic
 		}
 
 		const std::string& s = parent_formula_.as_string();
+		
+		const char* buffer1 = &(*begin_str_);
+		//const char* buffer2 = &(*end_str_);
+		const char* mainBuffer = &(*s.begin());
 
-		vm.setDebugInfo(parent_formula_, begin_str_ - s.begin(), end_str_ - s.begin());
+		const char* beginResult = strstr(mainBuffer, buffer1);
+		int beginPosition = beginResult - mainBuffer;
+
+		//const char* endResult = strstr(mainBuffer, buffer2);
+		//int endPosition = endResult - mainBuffer;
+
+		vm.setDebugInfo(parent_formula_, beginPosition, 0);
 	}
 
 	void FormulaExpression::setDebugInfo(const FormulaExpression& o)
@@ -256,6 +266,23 @@ namespace game_logic
 											 std::string::const_iterator end,
 											 PinpointedLoc* pos_info)
 	{
+		const char* mainBuffer = &(*v.as_string().begin());
+		const char* beginCharPtr = &(*begin);
+		const char* endCharPtr = &(*end);
+
+		std::string mainString(mainBuffer);
+		std::string beginString(beginCharPtr);
+		std::string endString(endCharPtr);
+
+		const char* beginResult = strstr(mainBuffer, beginCharPtr);
+		int beginPosition = beginResult - mainBuffer;
+
+		const char* endResult = strstr(mainBuffer, endCharPtr);
+		int endPosition = endResult - mainBuffer;
+
+		begin = v.as_string().begin() + beginPosition;
+		end = v.as_string().begin() + endPosition;
+
 		std::string str(begin, end);
 		if(!v.is_string() || !v.get_debug_info()) {
 			return "Unknown location (" + str + ")\n";
@@ -543,7 +570,7 @@ namespace game_logic
 
 			return variant(&result);
 		DEFINE_FIELD(num_entries, "int")
-			return variant(obj.cache_.size()); //@TODO truncation seems fine, but pops a lot of warnings for x64 builds
+			return variant((long unsigned int)obj.cache_.size()); //@TODO truncation seems fine
 		DEFINE_FIELD(max_entries, "int")
 			return variant(obj.max_entries_);
 		DEFINE_FIELD(all, "[builtin ffl_cache]")

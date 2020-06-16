@@ -101,7 +101,7 @@ namespace test
 		}
 
 		int npass = 0, nfail = 0;
-		for(const std::string& test : *tests) {
+		for(const std::string& test : all_tests) {
 			if(preferences::run_failing_unit_tests() == false && test.size() > 5 && std::string(test.end()-5, test.end()) == "FAILS") {
 				continue;
 			}

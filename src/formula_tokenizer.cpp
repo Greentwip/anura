@@ -128,9 +128,23 @@ namespace formula_tokenizer
 				t.type = FFL_TOKEN_TYPE::DECIMAL;
 				//   Finish the parsing of the decimal number.
 				++i1;
+
+				const char* buffer1 = &(*i1);
+				std::string fromBuffer(buffer1);
+
+				for (unsigned int i = 0; i < fromBuffer.size(); ++i) {
+					if (util::c_isdigit(fromBuffer[i])) {
+						++i1;
+					}
+					else {
+						break;
+					}
+				}
+
+				/*
 				while (util::c_isdigit(*i1)) {
 					++i1;
-				}
+				}*/
 				t.end = i1;
 				return t;
 			}

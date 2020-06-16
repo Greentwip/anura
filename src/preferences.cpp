@@ -1144,7 +1144,7 @@ namespace preferences
 		} else if(s == "--edit-and-continue") {
 			set_edit_and_continue(true);
 		} else {
-			if(arg.size() > 2 && arg[0] == '-' && arg[1] == '-' && std::find(arg.begin(), arg.end(), '=') != s.end()) {
+			if(arg.size() > 2 && arg[0] == '-' && arg[1] == '-' && std::find(arg.begin(), arg.end(), '=') != arg.end()) {
 				std::string::const_iterator equal = std::find(arg.begin(), arg.end(), '=');
 				std::string base_name(arg.begin()+2,equal);
 				std::replace(base_name.begin(), base_name.end(), '-', '_');

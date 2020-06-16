@@ -4216,7 +4216,23 @@ static std::string debugSubexpressionTypes(ConstFormulaPtr & fml)
 				//to our parent formula, so we know where in the file it lies.
 				const variant::debug_info* cur_info = formula_str.get_debug_info();
 				variant::debug_info info = *cur_info;
-				for(std::string::const_iterator i = formula_str.as_string().begin();
+
+				char character = '\0';
+
+				for (int i = 0; character != *beg->begin; ++i) {
+					character = formula_str.as_string()[i];
+					if (character == '\n') {
+						info.line++;
+						info.column = 0;
+					}
+					else {
+						info.column++;
+					}
+				}
+
+				//@TODO validation via index and not by content
+
+				/*for(std::string::const_iterator i = formula_str.as_string().begin();
 					i != beg->begin; ++i) {
 					if(*i == '\n') {
 						info.line++;
@@ -4224,8 +4240,8 @@ static std::string debugSubexpressionTypes(ConstFormulaPtr & fml)
 					} else {
 						info.column++;
 					}
-				}
-
+				} // iterator mania
+				*/
 				function_var.setDebugInfo(info);
 			}
 	
@@ -4993,7 +5009,9 @@ Formula::Formula(const variant& val, FunctionSymbolTable* symbols, ConstFormulaC
 	}
 
 	std::vector<Token> tokens;
-	std::string::const_iterator i1 = str_.as_string().begin(), i2 = str_.as_string().end();
+	auto stringToTokenize = str_.as_string();
+
+	std::string::const_iterator i1 = stringToTokenize.begin(), i2 = stringToTokenize.end();
 	while(i1 != i2) {
 		try {
 			tokens.push_back(get_token(i1,i2));
