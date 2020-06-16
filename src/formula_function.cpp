@@ -267,21 +267,28 @@ namespace game_logic
 											 PinpointedLoc* pos_info)
 	{
 		const char* mainBuffer = &(*v.as_string().begin());
-		const char* beginCharPtr = &(*begin);
-		const char* endCharPtr = &(*end);
+		const char* beginCharPtr = (begin._Ptr);
+		const char* endCharPtr = (end._Ptr);
 
-		std::string mainString(mainBuffer);
-		std::string beginString(beginCharPtr);
-		std::string endString(endCharPtr);
+		if (beginCharPtr != nullptr && endCharPtr != nullptr) {
+			std::string mainString(mainBuffer);
+			std::string beginString(beginCharPtr);
+			std::string endString(endCharPtr);
 
-		const char* beginResult = strstr(mainBuffer, beginCharPtr);
-		int beginPosition = beginResult - mainBuffer;
+			const char* beginResult = strstr(mainBuffer, beginCharPtr);
+			int beginPosition = beginResult - mainBuffer;
 
-		const char* endResult = strstr(mainBuffer, endCharPtr);
-		int endPosition = endResult - mainBuffer;
+			const char* endResult = strstr(mainBuffer, endCharPtr);
+			int endPosition = endResult - mainBuffer;
 
-		begin = v.as_string().begin() + beginPosition;
-		end = v.as_string().begin() + endPosition;
+			begin = v.as_string().begin() + beginPosition;
+			end = v.as_string().begin() + endPosition;
+
+		}
+		else {
+			begin = v.as_string().begin();
+			end = v.as_string().end();
+		}
 
 		std::string str(begin, end);
 		if(!v.is_string() || !v.get_debug_info()) {

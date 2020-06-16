@@ -4222,7 +4222,7 @@ void CustomObject::setValueBySlot(int slot, const variant& value)
 		setFrame(*f);
 		break;
 	}
-	
+
 	case CUSTOM_OBJECT_X1:
 	case CUSTOM_OBJECT_X: {
 		const int start_x = centiX();
@@ -4541,7 +4541,7 @@ void CustomObject::setValueBySlot(int slot, const variant& value)
 		break;
 
 	case CUSTOM_OBJECT_ROTATE:
-		setRotateZ(value.as_decimal());
+		setRotateZ(value.as_float());
 		break;
 
 	case CUSTOM_OBJECT_RED:

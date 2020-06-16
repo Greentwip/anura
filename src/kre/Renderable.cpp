@@ -254,9 +254,12 @@ namespace KRE
 
 	glm::mat4 Renderable::getModelMatrix() const 
 	{
-		return glm::translate(glm::mat4(1.0f), position_ + derived_position_) 
-			* glm::toMat4(derived_rotation_ * rotation_) 
-			* glm::scale(glm::mat4(1.0f), scale_ * derived_scale_);
+		auto setPosition = position_ + derived_position_;
+		auto setRotation = glm::toMat4(derived_rotation_) * glm::toMat4(rotation_);
+		auto setScale = scale_ * derived_scale_;
+		return glm::translate(glm::mat4(1.0f), setPosition)
+			* setRotation
+			* glm::scale(glm::mat4(1.0f), setScale);
 	}
 
 	void Renderable::setCamera(const CameraPtr& camera)
